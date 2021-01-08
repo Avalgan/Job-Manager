@@ -1,0 +1,19 @@
+# |-----------------------------------------------------------------|
+# |                    Avalgan "Job Manager"                        |
+# |            Plugin de gestion des jobs sur avalgan               |
+# |-----------------------------------------------------------------|
+
+
+Base de donee:
+# |-----------------------------------------------------------------|
+# |                    Configuration de la                          |
+# |                      base de donnée                             |
+# |-----------------------------------------------------------------|
+  BD_TYPE: mysql                            # Type de la bd, pour l'instant seul mySQL est supporté 
+  BD_ADRESS: localhost                      # L'adresse de connexion à la BD (ip, nom de domaine)
+  BD_PORT: 3306                             # Port de la BD
+  BD_NAME: AvalganJobs                      # nom de la base de donées qui contiendra les tables
+  BD_USER: root                             # Utilisateur de la BD
+  BD_PASSWORD: ''                           # Mot de passe de l'utilisateur
+  BD_RECONNECTION: true                     # Le plugin doit-il se reconnecter seul à la BD si la session expire
+  BD_SSL: false                             # Le serveur doit-il utiliser une connection SSL, seul false est supporté pour le moment
