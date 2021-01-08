@@ -1,0 +1,8 @@
+name: Job-Manager
+version: "0.0.1-SNAPSHOT"
+main: ch.avalgan.job.manager.JobManager
+description: "Plugin du serveur Avalgan permettant de g�rer les jobs normaux, et le builder!"
+api-version: 1.16
+author: __Wither
+website: https://avalgan.ch
+prefix: Jobs
