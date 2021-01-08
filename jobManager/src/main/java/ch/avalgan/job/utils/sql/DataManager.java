@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-import ch.avalgan.job.manager.JobManager;
+import ch.avalgan.job.main.JobManager;
 import ch.avalgan.job.utils.Commons.AinsiColors;
 
 /**
