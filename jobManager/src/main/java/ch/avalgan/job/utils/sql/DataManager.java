@@ -111,6 +111,11 @@ public class DataManager {
 		}
 	}
 
+	/**
+	 * Permet d'éxecuter une requête SQL sans valeur de retour
+	 * @param sql la requête à executer
+	 * @throws SQLException si la requête est invalide, ou qu'il y a un problème sur la BD
+	 */
 	private void runNoReturnSQLRequests(String sql) throws SQLException {
 		PreparedStatement q = this.connection.prepareStatement(sql);
 		
