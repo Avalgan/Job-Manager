@@ -53,7 +53,7 @@ public class DataManager {
 			
 			String chomeurTable = "CREATE TABLE IF NOT EXISTS `chomeurs` ("
 					+ "  `idJoueur` int(11) NOT NULL,"
-					+ "  FOREIGN KEY (`idJoueur`) REFERENCES `joueurs` (`idJoueur`);"
+					+ "  FOREIGN KEY (`idJoueur`) REFERENCES `joueurs` (`idJoueur`)"
 					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 			
 			String jobTable = "CREATE TABLE IF NOT EXISTS `jobs` ("
@@ -91,14 +91,13 @@ public class DataManager {
 					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 			
 		
-			
-			runNoReturnSQLRequests(builderTable);
-			runNoReturnSQLRequests(builderTasksTable);
-			runNoReturnSQLRequests(chomeurTable);
-			runNoReturnSQLRequests(jobTable);
-			runNoReturnSQLRequests(joueurTable);
-			runNoReturnSQLRequests(reportTable);
-			runNoReturnSQLRequests(travailleurTable);
+			runNoReturnSQLRequests(joueurTable, "joueur");
+			runNoReturnSQLRequests(builderTable, "builder");
+			runNoReturnSQLRequests(builderTasksTable, "builder tasks");
+			runNoReturnSQLRequests(chomeurTable, "chomeur");
+			runNoReturnSQLRequests(jobTable, "job");
+			runNoReturnSQLRequests(reportTable, "report");
+			runNoReturnSQLRequests(travailleurTable, "travailleur");
 			
 			logger.info(AinsiColors.GREEN + "---==[Tables crees avec succes]==---" + AinsiColors.NONE);
 		} catch(SQLException e) {
@@ -116,12 +115,13 @@ public class DataManager {
 	 * @param sql la requête à executer
 	 * @throws SQLException si la requête est invalide, ou qu'il y a un problème sur la BD
 	 */
-	private void runNoReturnSQLRequests(String sql) throws SQLException {
+	private void runNoReturnSQLRequests(String sql, String name) throws SQLException {
 		PreparedStatement q = this.connection.prepareStatement(sql);
 		
 		
 		q.execute();
 		
 		q.close();
+		JobManager.logger.info(AinsiColors.GREEN + "---==[Tables "+ name + " creee avec succes]==---" + AinsiColors.NONE);
 	}
 }

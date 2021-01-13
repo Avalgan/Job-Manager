@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 import ch.avalgan.job.utils.Commons.AinsiColors;
+import ch.avalgan.job.utils.events.PlayerJoinEvents;
 import ch.avalgan.job.utils.sql.Connector;
 import ch.avalgan.job.utils.sql.DataManager;
 
@@ -31,7 +35,7 @@ public class JobManager extends JavaPlugin{
 	public static boolean reconnection, ssl;
 
 	public Connector connector;
-	public Connection connection;
+	public static Connection connection;
 	public static Logger logger;
 	/**
 	 * Appelé au démarrage du plugin, surcharge du onEnable de JavaPlugin
@@ -54,9 +58,7 @@ public class JobManager extends JavaPlugin{
 		this.connector = new Connector();
 		
 		try {
-			this.connector.connect(type, host, port, dbName, dbUser, dbPwd, reconnection, ssl);
-			
-			this.connection = connector.getConnection();
+			connection = this.connector.connect(type, host, port, dbName, dbUser, dbPwd, reconnection, ssl);
 			
 			dm = new DataManager(connection);
 			dm.createTables();
@@ -75,6 +77,7 @@ public class JobManager extends JavaPlugin{
 			logger.warning(AinsiColors.RED + "--------------------------------------------------------" + AinsiColors.NONE);
 		}
 		
+		registerEvents();
 		logger.info(AinsiColors.GREEN + "--==Plugin active==--" + AinsiColors.NONE);
 	}
 	
@@ -84,5 +87,14 @@ public class JobManager extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		getLogger().info(AinsiColors.RED + "--==Plugin desactive==--" + AinsiColors.NONE);
+	}
+	
+
+	/**
+	 * Méthode permettant d'enregistrer toutes les classes gérant les evenements spigot
+	 */
+	private void registerEvents() {
+		PluginManager pm = Bukkit.getPluginManager();
+		pm.registerEvents(new PlayerJoinEvents(), this);
 	}
 }
